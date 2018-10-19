@@ -10,10 +10,10 @@ public enum Material {
      * Modify the default values to make it look like gold.
      */
     GOLD (
-            
-        new float[] {0, 0, 0, 1},
-        new float[] {0, 0, 0, 1},
-        0
+
+            new float[] {0.752f, 0.619f, 0.196f, 1},
+            new float[] {0.628f, 0.5712f, 0.3435f, 1},
+            22f
 
     ),
 
@@ -22,10 +22,10 @@ public enum Material {
      * Modify the default values to make it look like silver.
      */
     SILVER (
-            
-        new float[] {0, 0, 0, 1},
-        new float[] {0, 0, 0, 1},
-        0
+
+            new float[] {0.507f, 0.507f, 0.507f, 1},
+            new float[] {0.508f, 0.508f, 0.508f, 1},
+            22f
 
     ),
 
@@ -34,10 +34,10 @@ public enum Material {
      * Modify the default values to make it look like orange.
      */
     ORANGE (
-            
-        new float[] {0, 0, 0, 1},
-        new float[] {0, 0, 0, 1},
-        0
+
+            new float[] {0.992f, 0.514f, 0, 1},
+            new float[] {0.0225f, 0.0225f, 0.0225f, 1},
+            11f
 
     ),
 
@@ -47,9 +47,10 @@ public enum Material {
      */
     WOOD (
 
-        new float[] {0, 0, 0, 1},
-        new float[] {0, 0, 0, 1},
-        0
+            new float[] {0.992f, 0.514f, 0, 1},
+            new float[] {0.0225f, 0.0225f, 0.0225f, 1},
+            // same as Orange but with much less shininess
+            100f
 
     );
 
