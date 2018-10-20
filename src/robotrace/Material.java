@@ -11,7 +11,7 @@ public enum Material {
      */
     GOLD (
 
-            new float[] {0.752f, 0.619f, 0.196f, 1},
+            new float[] {0.751f, 0.619f, 0.196f, 1},
             new float[] {0.628f, 0.5712f, 0.3435f, 1},
             22f
 
