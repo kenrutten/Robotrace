@@ -37,7 +37,7 @@ public enum Material {
 
             new float[] {0.992f, 0.514f, 0, 1},
             new float[] {0.0225f, 0.0225f, 0.0225f, 1},
-            11f
+            13f
 
     ),
 
