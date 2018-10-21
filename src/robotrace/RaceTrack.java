@@ -5,6 +5,7 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.glu.GLU;
 import static com.jogamp.opengl.GL2.*;
+import static robotrace.Textures.*;
 
 /**
  * Implementation of a race track that is made from Bezier segments.
@@ -102,8 +103,8 @@ abstract class RaceTrack {
      * Returns the tangent of a lane at 0 <= t < 1.
      * Use this method to find the orientation of a robot on the track.
      */
-    public Vector getLaneTangent(double t){
-        return getTangent(t);
+    public Vector getLaneTangent(int lane, double t){
+        return getLanePoint(lane, t+0.0001).subtract(getLanePoint(lane, t)).normalized();
 
     }
     
