@@ -36,15 +36,23 @@ class Robot {
         
     }
 
+    
     /**
      * Draws this robot (as a {@code stickfigure} if specified).
      */
     public void draw(GL2 gl, GLU glu, GLUT glut, float tAnim, float motionSpeed) {
         //gl.glColor3d(255,0,0);
+        double angle;
+        if(position.y>0){
+            angle = Math.acos(direction.y)* (180/Math.PI);
+        }else{
+            angle = -Math.acos(direction.y)* (180/Math.PI);
+        }
+        
         gl.glPushMatrix();
-      // gl.glRotated( 90, 0, 0, 1);
         gl.glTranslated(position.x, position.y, position.z);
         gl.glTranslated(0, 0, 0.05*Math.cos(2*motionSpeed*tAnim));
+        gl.glRotated(angle , 0, 0, 1);
         
          
             //Draw right leg
