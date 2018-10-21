@@ -36,11 +36,11 @@ abstract class RaceTrack {
          gl.glNormal3d(normal.x(), normal.y(), normal.z());
         
         for(float t = 0; t < 1; t += interval){
-           Vector center = getPoint(t);
+           Vector trackCenter = getPoint(t);
            normal = getTangent(t).cross(Vector.Z).normalized();
            
-           Vector in = center.subtract(normal.scale(2*laneWidth));
-           Vector out = center.add(normal.scale(2*laneWidth));
+           Vector in = trackCenter.subtract(normal.scale(2*laneWidth));
+           Vector out = trackCenter.add(normal.scale(2*laneWidth));
            
             gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 0);
                 gl.glVertex3d(in.x, in.y,  1);
@@ -55,10 +55,10 @@ abstract class RaceTrack {
          gl.glNormal3d(normal.x(), normal.y(), normal.z());
         
         for(float t = 0; t < 1; t += interval){
-           Vector center = getPoint(t);
+           Vector trackCenter = getPoint(t);
            normal = getTangent(t).cross(Vector.Z).normalized();
            
-           Vector in = center.subtract(normal.scale(2*laneWidth));
+           Vector in = trackCenter.subtract(normal.scale(2*laneWidth));
            
             gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 0);
                 gl.glVertex3d(in.x, in.y,  1);
@@ -73,10 +73,10 @@ abstract class RaceTrack {
          gl.glNormal3d(normal.x(), normal.y(), normal.z());
         
         for(float t = 0; t < 1; t += interval){
-           Vector center = getPoint(t);
+           Vector trackCenter = getPoint(t);
            normal = getTangent(t).cross(Vector.Z).normalized();
            
-           Vector out = center.add(normal.scale(2*laneWidth));
+           Vector out = trackCenter.add(normal.scale(2*laneWidth));
            
             gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 0);
                 gl.glVertex3d(out.x, out.y,  1);
@@ -87,12 +87,14 @@ abstract class RaceTrack {
     }
     
     /**
-     * Returns the center of a lane at 0 <= t < 1.
+     * Returns the trackCenter of a lane at 0 <= t < 1.
      * Use this method to find the position of a robot on the track.
      */
     public Vector getLanePoint(int lane, double t){
-
-        return Vector.O;
+           Vector trackCenter = getPoint(t);
+           Vector normal = getTangent(t).cross(Vector.Z).normalized();
+           
+        return trackCenter.add(normal.scale(laneWidth*lane-1.5f*laneWidth));
 
     }
     
@@ -100,9 +102,8 @@ abstract class RaceTrack {
      * Returns the tangent of a lane at 0 <= t < 1.
      * Use this method to find the orientation of a robot on the track.
      */
-    public Vector getLaneTangent(int lane, double t){
-        
-        return Vector.O;
+    public Vector getLaneTangent(double t){
+        return getTangent(t);
 
     }
     
