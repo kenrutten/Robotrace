@@ -37,6 +37,7 @@ class Camera {
      * Computes eye, center, and up, based on the camera's default mode.
      */
     private void setDefaultMode(GlobalState gs) {
+        gs.vDist = 40;
         eye.x = gs.vDist*Math.cos(gs.theta)*Math.sin(gs.phi);
         eye.y = gs.vDist*Math.sin(gs.theta)*Math.sin(gs.phi);
         eye.z = gs.vDist*Math.cos(gs.phi);
@@ -47,6 +48,9 @@ class Camera {
      * The camera should view from the perspective of the robot.
      */
     private void setFirstPersonMode(GlobalState gs, Robot focus) {
-
+        eye.x = focus.position.x;
+        eye.y = focus.position.y;
+        eye.z = focus.position.z + 1.98;
+        center = focus.position.add(focus.direction.scale(gs.vDist));
     }
 }
