@@ -15,12 +15,13 @@ public class Textures {
     public static Texture torso = null;
     public static Texture track = null;
     public static Texture brick = null;
+    
         
     public static void loadTextures() {
-        head = loadTexture("textures/head.jpg");
-        torso = loadTexture("textures/torso.jpg");
+        head = loadTexture("textures/smile.jpg");
+        torso = loadTexture("textures/abs.jpg");
         track = loadTexture("textures/track.jpg");
-        brick = loadTexture("textures/brick.jpg");
+        brick = loadTexture("textures/castle.jpg");
     }
     
     /**
