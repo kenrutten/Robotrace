@@ -15,7 +15,7 @@ abstract class RaceTrack {
     /** The width of one lane. The total width of the track is 4 * laneWidth. */
     private final static float laneWidth = 1.22f;
     
-    private final static float interval = 1f/1000;
+    private final static float interval = 1f/200;
     
     /**
      * Constructor for the default track.
@@ -30,23 +30,33 @@ abstract class RaceTrack {
      */
     public void draw(GL2 gl, GLU glu, GLUT glut) {
         Vector normal = getTangent(0).cross(Vector.Z).normalized();
+        Vector nextNormal = getTangent(0).cross(Vector.Z).normalized();
         
         //DRAW SURFACE
         Textures.track.bind(gl);
         gl.glBegin(GL2.GL_TRIANGLE_STRIP);
          gl.glNormal3d(normal.x(), normal.y(), normal.z());
         
+        //DRAW TRACK SURFACE
         for(float t = 0; t < 1; t += interval){
            Vector trackCenter = getPoint(t);
+           Vector nextTrackCenter = getPoint(t + interval);
            normal = getTangent(t).cross(Vector.Z).normalized();
+           nextNormal = getTangent(t + interval).cross(Vector.Z).normalized();
            
            Vector in = trackCenter.subtract(normal.scale(2*laneWidth));
            Vector out = trackCenter.add(normal.scale(2*laneWidth));
+           Vector nextIn = nextTrackCenter.subtract(nextNormal.scale(2*laneWidth));
+            Vector nextOut = nextTrackCenter.add(nextNormal.scale(2*laneWidth));
            
             gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 0);
                 gl.glVertex3d(in.x, in.y,  1);
                 gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 0);
                 gl.glVertex3d(out.x, out.y, 1);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 1);
+                gl.glVertex3d(nextIn.x, nextIn.y,  1);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 1);
+                gl.glVertex3d(nextOut.x, nextOut.y, 1);
         }
         gl.glEnd();
         
@@ -54,35 +64,47 @@ abstract class RaceTrack {
          Textures.brick.bind(gl);
         gl.glBegin(GL2.GL_TRIANGLE_STRIP);
          gl.glNormal3d(normal.x(), normal.y(), normal.z());
-        
         for(float t = 0; t < 1; t += interval){
            Vector trackCenter = getPoint(t);
+           Vector nextTrackCenter = getPoint(t + interval);
            normal = getTangent(t).cross(Vector.Z).normalized();
+           nextNormal = getTangent(t + interval).cross(Vector.Z).normalized();
            
            Vector in = trackCenter.subtract(normal.scale(2*laneWidth));
+           Vector nextIn = nextTrackCenter.subtract(nextNormal.scale(2*laneWidth));
            
             gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 0);
                 gl.glVertex3d(in.x, in.y,  1);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 1);
+                gl.glVertex3d(in.x, in.y, -1);
                 gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 0);
-                gl.glVertex3d(in.x, in.y,  -1);
+                gl.glVertex3d(nextIn.x, nextIn.y,  1);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 1);
+                gl.glVertex3d(nextIn.x, nextIn.y, -1);
         }
         gl.glEnd();
         
-         //DRAW OUTSIDE WALL
-        Textures.brick.bind(gl);
+         //DRAW INSIDE WALL
+         Textures.brick.bind(gl);
         gl.glBegin(GL2.GL_TRIANGLE_STRIP);
          gl.glNormal3d(normal.x(), normal.y(), normal.z());
-        
         for(float t = 0; t < 1; t += interval){
            Vector trackCenter = getPoint(t);
+           Vector nextTrackCenter = getPoint(t + interval);
            normal = getTangent(t).cross(Vector.Z).normalized();
-           
+           nextNormal = getTangent(t + interval).cross(Vector.Z).normalized();
+            
            Vector out = trackCenter.add(normal.scale(2*laneWidth));
+            Vector nextOut = nextTrackCenter.add(nextNormal.scale(2*laneWidth));
            
             gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 0);
                 gl.glVertex3d(out.x, out.y,  1);
-                gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 0);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 0, 1);
                 gl.glVertex3d(out.x, out.y, -1);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 0);
+                gl.glVertex3d(nextOut.x, nextOut.y,  1);
+                gl.glMultiTexCoord2d(GL_TEXTURE0, 1, 1);
+                gl.glVertex3d(nextOut.x, nextOut.y, -1);
         }
         gl.glEnd();
     }
