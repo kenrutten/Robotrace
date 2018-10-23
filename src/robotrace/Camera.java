@@ -37,7 +37,7 @@ class Camera {
      * Computes eye, center, and up, based on the camera's default mode.
      */
     private void setDefaultMode(GlobalState gs) {
-        gs.vDist = 40;
+        gs.vDist = 30;
         eye.x = gs.vDist*Math.cos(gs.theta)*Math.sin(gs.phi);
         eye.y = gs.vDist*Math.sin(gs.theta)*Math.sin(gs.phi);
         eye.z = gs.vDist*Math.cos(gs.phi);
